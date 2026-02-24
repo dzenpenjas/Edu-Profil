@@ -229,17 +229,34 @@ function tutupModal(){
 }
 
 function bukaKamera(){
+
+    // Coba buka kamera belakang dulu
     navigator.mediaDevices.getUserMedia({
         video: {
-            facingMode: "environment"
+            facingMode: { ideal: "environment" }
         }
     })
     .then(function(s){
-        stream=s;
-        document.getElementById("video").srcObject=stream;
+        stream = s;
+        document.getElementById("video").srcObject = stream;
     })
-    .catch(function(err){
-        console.log("Error kamera:", err);
+    .catch(function(error){
+
+        console.log("Gagal pakai kamera belakang, coba default...");
+
+        // Kalau gagal, pakai kamera default
+        navigator.mediaDevices.getUserMedia({
+            video: true
+        })
+        .then(function(s){
+            stream = s;
+            document.getElementById("video").srcObject = stream;
+        })
+        .catch(function(err){
+            alert("Kamera tidak bisa diakses");
+            console.log(err);
+        });
+
     });
 }
 
