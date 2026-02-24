@@ -319,7 +319,7 @@ function tampilkanSiswa(){
 
         card.innerHTML=`
             <button class="delete-btn" onclick="hapusSiswa(${index});event.stopPropagation()">x</button>
-            <img src="${data.foto || 'https://via.placeholder.com/80'}">
+            <img src="${data.foto || 'img/default.png'}">
             <strong>${data.namaLengkap}</strong><br>
             <small>${data.namaPanggilan}</small>
         `;
