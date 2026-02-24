@@ -1,0 +1,218 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Manajemen Kelas</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
+
+<style>
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+    font-family:'Poppins',sans-serif;
+}
+
+body{
+    background:#f4f7fb;
+}
+
+header{
+    background:#1e3a8a;
+    color:white;
+    padding:20px;
+    text-align:center;
+    font-size:20px;
+    font-weight:600;
+}
+
+.container{
+    width:95%;
+    max-width:1100px;
+    margin:30px auto;
+}
+
+.card{
+    background:white;
+    padding:20px;
+    border-radius:12px;
+    box-shadow:0 5px 15px rgba(0,0,0,0.08);
+    margin-bottom:20px;
+}
+
+h2{
+    margin-bottom:15px;
+    color:#1e3a8a;
+}
+
+input{
+    width:100%;
+    padding:10px;
+    margin:10px 0;
+    border-radius:8px;
+    border:1px solid #ddd;
+}
+
+button{
+    padding:10px 15px;
+    border:none;
+    border-radius:8px;
+    cursor:pointer;
+    font-size:14px;
+}
+
+.btn-primary{
+    background:#1e3a8a;
+    color:white;
+}
+
+.btn-danger{
+    background:#dc2626;
+    color:white;
+    margin-left:5px;
+}
+
+.kelas-grid{
+    display:grid;
+    grid-template-columns:repeat(auto-fit,minmax(200px,1fr));
+    gap:15px;
+}
+
+.kelas-card{
+    background:white;
+    padding:20px;
+    border-radius:12px;
+    text-align:center;
+    box-shadow:0 5px 15px rgba(0,0,0,0.05);
+    transition:0.3s;
+    cursor:pointer;
+    position:relative;
+}
+
+.kelas-card:hover{
+    transform:translateY(-5px);
+}
+
+.kelas-title{
+    font-size:18px;
+    font-weight:600;
+    color:#1e3a8a;
+}
+
+.delete-btn{
+    position:absolute;
+    top:8px;
+    right:8px;
+    background:#dc2626;
+    color:white;
+    border:none;
+    border-radius:6px;
+    padding:3px 6px;
+    font-size:12px;
+    cursor:pointer;
+}
+
+.empty{
+    text-align:center;
+    color:#888;
+    margin-top:20px;
+}
+</style>
+</head>
+
+<body>
+
+<header>
+📘 MANAJEMEN KELAS
+</header>
+
+<div class="container">
+
+<div class="card">
+<h2>Tambah Kelas</h2>
+
+<input type="text" id="namaKelas" placeholder="Contoh: Kelas 7A">
+<button class="btn-primary" onclick="tambahKelas()">➕ Tambah Kelas</button>
+
+</div>
+
+<div class="card">
+<h2>Daftar Kelas</h2>
+<div id="daftarKelas" class="kelas-grid"></div>
+<div id="kosong" class="empty"></div>
+</div>
+
+</div>
+
+<script>
+
+let kelas = JSON.parse(localStorage.getItem("dataKelas")) || [];
+
+function simpanData(){
+    localStorage.setItem("dataKelas", JSON.stringify(kelas));
+}
+
+function tambahKelas(){
+    let nama = document.getElementById("namaKelas").value.trim();
+
+    if(nama === ""){
+        alert("Nama kelas tidak boleh kosong!");
+        return;
+    }
+
+    kelas.push({
+        nama:nama,
+        siswa:[]
+    });
+
+    simpanData();
+    document.getElementById("namaKelas").value="";
+    tampilkanKelas();
+}
+
+function tampilkanKelas(){
+    let container = document.getElementById("daftarKelas");
+    let kosong = document.getElementById("kosong");
+
+    container.innerHTML="";
+
+    if(kelas.length === 0){
+        kosong.innerHTML="Belum ada kelas ditambahkan.";
+        return;
+    } else {
+        kosong.innerHTML="";
+    }
+
+    kelas.forEach((data,index)=>{
+        let card = document.createElement("div");
+        card.className="kelas-card";
+        card.innerHTML=`
+            <button class="delete-btn" onclick="hapusKelas(${index});event.stopPropagation()">x</button>
+            <div class="kelas-title">${data.nama}</div>
+        `;
+
+        card.onclick = function(){
+            localStorage.setItem("kelasDipilih", index);
+            window.location.href="dafsis.html";
+        };
+
+        container.appendChild(card);
+    });
+}
+
+function hapusKelas(index){
+    if(confirm("Yakin ingin menghapus kelas ini?")){
+        kelas.splice(index,1);
+        simpanData();
+        tampilkanKelas();
+    }
+}
+
+tampilkanKelas();
+
+</script>
+
+</body>
+</html>
