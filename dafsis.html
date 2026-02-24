@@ -231,9 +231,7 @@ function tutupModal(){
 function bukaKamera(){
     navigator.mediaDevices.getUserMedia({
         video: {
-            facingMode: { ideal: "environment" },
-            width: { ideal: 1280 },
-            height: { ideal: 720 }
+            facingMode: "environment"
         }
     })
     .then(function(s){
@@ -241,7 +239,7 @@ function bukaKamera(){
         document.getElementById("video").srcObject=stream;
     })
     .catch(function(err){
-        console.log("Gagal:", err);
+        console.log("Error kamera:", err);
     });
 }
 
