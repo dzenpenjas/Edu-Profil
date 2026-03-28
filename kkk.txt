@@ -1,0 +1,12 @@
+saya mau apk untuk menyimpan data siswa saya. 
+
+saya seorang guru penjas, dan apk ini akan lebih sering digunakan di mobile android. Buat apk yang user friendly 
+- saya ingin ada opi tambah kelas 
+- trus tambah nama siswa 
+- saya mau ada foto siswa saya. 
+ - biodata , nama lengkap, nama panggilan, tgl lahir.  ada juga bio optional ( tinggi badan, berat badan)
+- saya juga mau bisa di pakai absensi. karena saya seorang guru
+- saya juga mau ada input peniliaan harian agar bisa lebih berguna apk nya. 
+- bisa tambahkan catatn per siswa nya per hari nya.
+- ada timer dll yang dibutuhkan guru penjas. 
+- 
