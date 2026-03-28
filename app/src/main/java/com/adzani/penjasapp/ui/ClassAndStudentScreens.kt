@@ -91,10 +91,12 @@ fun ClassDetailScreen(
         contract = ActivityResultContracts.OpenDocument(),
     ) { uri ->
         uri?.let {
-            context.contentResolver.takePersistableUriPermission(
-                it,
-                Intent.FLAG_GRANT_READ_URI_PERMISSION,
-            )
+            runCatching {
+                context.contentResolver.takePersistableUriPermission(
+                    it,
+                    Intent.FLAG_GRANT_READ_URI_PERMISSION,
+                )
+            }
         }
         photoUri = uri?.toString().orEmpty()
     }
